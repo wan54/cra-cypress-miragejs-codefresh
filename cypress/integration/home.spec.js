@@ -16,12 +16,17 @@ describe('Home page', () => {
 			it('then should display the metadata', () => {
 				cy.visit('/');
 				cy.injectAxe();
-				cy.checkA11y();
-				// cy.checkSeriousImpactA11y();
+				// cy.checkA11y();
+				cy.checkSeriousImpactA11y();
 
 				cy.get('[data-cy=metadata-list]')
 					.children('li')
 					.should('have.length', 2);
+				cy.get('[data-cy=metadata-list]')
+					.children('li')
+					.first()
+					.contains('service a')
+					.should('be.visible');
 			});
 		});
 	});
