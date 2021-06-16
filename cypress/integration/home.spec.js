@@ -22,6 +22,11 @@ describe('Home page', () => {
 				cy.get('[data-cy=metadata-list]')
 					.children('li')
 					.should('have.length', 2);
+				cy.get('[data-cy=metadata-list]')
+					.children('li')
+					.first()
+					.contains('service a')
+					.should('be.visible');
 			});
 		});
 	});
