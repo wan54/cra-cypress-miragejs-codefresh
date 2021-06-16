@@ -16,8 +16,8 @@ describe('Home page', () => {
 			it('then should display the metadata', () => {
 				cy.visit('/');
 				cy.injectAxe();
-				// cy.checkA11y();
-				cy.checkSeriousImpactA11y();
+				cy.checkA11y();
+				// cy.checkSeriousImpactA11y();
 
 				cy.get('[data-cy=metadata-list]')
 					.children('li')
