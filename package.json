@@ -1,38 +1,66 @@
 {
-  "name": "cra-test",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "cra-test",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@cypress/code-coverage": "3.9.5",
+		"@cypress/instrument-cra": "1.4.0",
+		"@ping-identity/p14c-js-sdk-auth": "1.0.0-pre.1",
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.1.0",
+		"@testing-library/user-event": "^12.1.10",
+		"cross-env": "^7.0.3",
+		"cypress": "7.5.0",
+		"cypress-axe": "./lib/cypress-axe-0.12.3.tgz",
+		"miragejs": "0.1.41",
+		"monaco-editor": "0.25.1",
+		"orval": "^5.4.6",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-json-view": "1.21.3",
+		"react-scripts": "4.0.3",
+		"start-server-and-test": "1.12.5",
+		"testcafe": "^1.14.2",
+		"web-vitals": "^1.0.1"
+	},
+	"scripts": {
+		"cy:install": "cross-env CYPRESS_INSTALL_BINARY=0 yarn add cypress",
+		"cy:open": "cypress open",
+		"cy:open:debug": "cross-env DEBUG=cypress:* cypress open",
+		"cy:run": "cypress run",
+		"start": "cross-env REACT_APP_NODE_ENV=development react-scripts start",
+		"start:e2e": "cross-env REACT_APP_NODE_ENV=e2e BROWSER=none PORT=3010 react-scripts -r @cypress/instrument-cra start",
+		"test:e2e": "start-test start:e2e 3010 cy:open",
+		"posttest:e2e": "yarn coverage:report",
+		"test:e2e:ci": "start-test start:e2e 3010 cy:run",
+		"posttest:e2e:ci": "yarn coverage:report",
+		"coverage:report": "nyc report --reporter=lcov",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"nyc": {
+		"exclude": [
+			"src/api-mock/**",
+			"src/reportWebVitals.js"
+		]
+	}
 }
